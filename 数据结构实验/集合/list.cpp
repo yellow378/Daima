@@ -117,7 +117,7 @@ void sub(Listptr LA,Listptr LB,Listptr &LC){//Çó²î¼¯
 				break;
 			}
 		}
-		if(flag == 0) LC->data[LC->len++] = LC->data[i]; 
+		if(flag == 0) LC->data[LC->len++] = LA->data[i]; 
 	}
 	showall(LC);
 }
