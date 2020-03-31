@@ -74,6 +74,7 @@ void CreatList(Listptr &L)
 void showList(Listptr L)
 {
     Listptr t = L->next;
+    printf("f(x) = ");
     while(t)
     {
         if(t==L->next){
@@ -159,24 +160,24 @@ void addList(Listptr L1,Listptr L2,Listptr &L3)
             t1 = t1->next;
         }
     }
-    while(t1){
-            r = (Listptr)malloc(sizeof(List));
-            r->data = t1->data;
-            r->pow = t1->pow;
-            r->next = t3->next;
-            t3->next = r;
-            t3 = t3->next;
-            t1 = t1->next;
-    }
-    while(t2){
-            r = (Listptr)malloc(sizeof(List));
-            r->data = t2->data;
-            r->pow = t2->pow;
-            r->next = t3->next;
-            t3->next = r;
-            t3 = t3->next;
-            t2 = t2->next;
-    }
+//    while(t1){
+//            r = (Listptr)malloc(sizeof(List));
+//            r->data = t1->data;
+//            r->pow = t1->pow;
+//            r->next = t3->next;
+//            t3->next = r;
+//            t3 = t3->next;
+//            t1 = t1->next;
+//    }
+//    while(t2){
+//            r = (Listptr)malloc(sizeof(List));
+//            r->data = t2->data;
+//            r->pow = t2->pow;
+//            r->next = t3->next;
+//            t3->next = r;
+//            t3 = t3->next;
+//            t2 = t2->next;
+//    }
     
 }
 //¼ÆËã1913ÀîÎÄÐù
