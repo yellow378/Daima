@@ -41,6 +41,23 @@ int Find(char *exp,char *ob,int next[]){
     }
     return false;
 }
+int KMP(char *exp,char *ob,int next[]){
+    int n = strlen(exp);
+    int m = strlen(ob);
+    int i = 0, j = 0;
+    while(i<n&&j<m){
+        if(j==-1||exp[i]==ob[j]){
+            i++;
+            j++;
+        }else{
+            j = next[j];
+        }
+    }
+    if(j==m)
+        return i - m;
+    else
+        return -1;
+}
 int main()
 {
     char exp[MaxSize];
@@ -51,6 +68,7 @@ int main()
     int n = strlen(exp);
     GetNext(exp, next);
     int result = Find(exp, ob, next);
-    printf("%d", result);
+    int result2 = KMP(exp, ob, next);
+    printf("%d,%d", result,result2);
     return 0;
 }
