@@ -69,6 +69,10 @@ int main()
     GetNext(exp, next);
     int result = Find(exp, ob, next);
     int result2 = KMP(exp, ob, next);
+    for(int i=0;i<n;i++){
+    	printf("%d ",next[i]);
+	} 
+	printf("\n");
     printf("%d,%d", result,result2);
     return 0;
 }
