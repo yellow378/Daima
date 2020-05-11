@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<stack>
+#include<queue>
 using namespace std;
 #define MaxSize 100
 
@@ -20,11 +21,13 @@ void PosTrans(BTNode *b);					//递归后序遍历
 void NoRePreTrans(BTNode *b);				//非递归前序遍历
 void NoReInTrans(BTNode *b);				//非递归中序遍历
 void NoRePosTrans(BTNode *b);				//非递归后序遍历
+void CengXuTrans(BTNode *b);				//层序遍历
+int function(BTNode *b);
 
 int main()
 {
 	BTNode* b,*t;
-	char str[] = "A(B(C,D),E(F,G))";
+	char str[] = "A(B(C(D(E))))";
 	CreateBTree(b, str);
 	//printf("%c", (t=FindNode(b, 'G'))==NULL?'0':t->data);
 	printf("递归前序遍历");
@@ -46,9 +49,18 @@ int main()
 	printf("非递归后序遍历");
 	NoRePosTrans(b);
 	printf("\n");
+	printf("层序遍历");
+	CengXuTrans(b);
+	printf("\n");
 	
+	
+	printf("单节点的数量：%d\n",function(b));
+	
+
 	DestroyBTree(b);
-		
+	
+	
+	
 	return 0;
 }
 void CreateBTree(BTNode*& b, char* str)
@@ -71,8 +83,8 @@ void CreateBTree(BTNode*& b, char* str)
 			}
 			else {
 				switch (k) {
-				case 1:St[top]->lchild = p;
-				case 2:St[top]->rchild = p;
+				case 1:St[top]->lchild = p;break;
+				case 2:St[top]->rchild = p;break;
 				}
 			}
 		}
@@ -148,20 +160,47 @@ void NoReInTrans(BTNode *b){
 	}
 }
 void NoRePosTrans(BTNode *b){
-	stack<BTNode *> s;
-	while(b||!s.empty()){
-		while(b){
-			s.push(b);
-			b=b->lchild;
+	BTNode *p,*r;
+	int flag;
+	stack<BTNode*> q;
+	p=b;
+	do{
+		while(p!=NULL){
+			q.push(p);
+			p=p->lchild;
 		}
-		if(!s.empty()){
-			b=s.top();
-			s.pop();
-			if(b->right==NULL||b->right=r){
-				printf("%c",b->data);
+		r=NULL;
+		flag=1;
+		while(!q.empty()&&flag){
+			p=q.top();
+			if(p->rchild==r){
+				printf("%c",p->data);
+				q.pop();
+				r=p;
+			}else{
+				p=p->rchild;
+				flag=0;
 			}
-			b=b->rchild;
-			
 		}
+	}while(!q.empty());
+}
+void CengXuTrans(BTNode *b){
+	queue<BTNode*> q;
+	BTNode *t;
+	q.push(b);
+	while(!q.empty()){
+		t=q.front();
+		q.pop();
+		printf("%c",t->data);
+		if(t->lchild) q.push(t->lchild);
+		if(t->rchild) q.push(t->rchild);
+	}
+}
+int function(BTNode *b){
+	if(b==NULL) return 0;
+	else if((b->lchild&&b->rchild==NULL)||(b->lchild==NULL&&b->rchild)){
+		return 1+function(b->lchild)+function(b->rchild);
+	}else{
+		return function(b->lchild)+function(b->rchild);
 	}
 }

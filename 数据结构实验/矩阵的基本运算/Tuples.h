@@ -5,18 +5,21 @@
 using namespace std;
 #define MaxSize 100
 //数据结构
+
+//三元组每个元素
 typedef struct {
 	int r;			//行
 	int c;			//列
 	int data;		//数据
-}ThreeTup;
+}ThreeTup;			
 
+//整个三元组
 typedef struct {
 	int rows;				//行数
 	int cols;				//列数
 	int nums;				//非零元素数
 	ThreeTup data[MaxSize];	//数据
-}TupMatrix;
+}TupMatrix;					
 
 void CreateTupMatrix(TupMatrix &t,int n, int m);
 void PrintTupMatrix(TupMatrix t);

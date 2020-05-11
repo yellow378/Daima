@@ -2,7 +2,7 @@
 #include "Tuples.h"
 int main()
 {
-	TupMatrix a, b,c;
+	TupMatrix a, b, c;
 	TupMatrix at, bt;
 	int k;
 	while (1) {
@@ -80,15 +80,17 @@ void AddTupMatrix(TupMatrix a, TupMatrix b, TupMatrix& c) {
 	c.rows = a.rows;
 	c.nums = 0;				//初始化
 	a.data[a.nums].r = a.data[a.nums].c = -1;	
-	b.data[a.nums].r = b.data[a.nums].c = -1;	//边界防止数组的下标溢出对结果造成影响
+	b.data[a.nums].r = b.data[a.nums].c = -1;//边界防止数组的下标溢出对结果造成影响
 	int numa = 0, numb = 0,numc=0;
 	for (int i = 0; i < c.rows; i++) {
 		for (int j = 0; j < c.cols; j++) {
 
 			if (a.data[numa].r == i && a.data[numa].c == j) {
 				if (b.data[numb].r == i && b.data[numb].c == j) {
-					c.data[numc] = a.data[numa++];
-					c.data[numc++].data += b.data[numb++].data;
+					if (a.data[numa].data + b.data[numb].data) {
+						c.data[numc] = a.data[numa++];
+						c.data[numc++].data += b.data[numb++].data;
+					}
 				}
 				else {
 					c.data[numc++] = a.data[numa++];
@@ -133,6 +135,15 @@ void TranTupMatrix(TupMatrix a, TupMatrix b, TupMatrix& at, TupMatrix& bt) {
 		}
 	}
 }
+int GetValue(TupMatrix a, int i, int j)
+{
+	for (int k = 0; k < a.nums; k++) {
+		if (a.data[k].r == i && a.data[k].c == j) {
+			return a.data[k].data;
+		}
+	}
+	return 0;
+}
 void MultTupMatrix(TupMatrix a, TupMatrix b, TupMatrix& c) {
 	if (a.cols != b.rows) {
 		printf("不能进行乘法!\n");
@@ -152,15 +163,6 @@ void MultTupMatrix(TupMatrix a, TupMatrix b, TupMatrix& c) {
 			}
 		}
 	}
-}
-int GetValue(TupMatrix a, int i, int j)
-{
-	for (int k = 0; k < a.nums; k++) {
-		if (a.data[k].r == i && a.data[k].c == j) {
-			return a.data[k].data;
-		}
-	}
-	return 0;
 }
 void menu() {
 	system("cls");
