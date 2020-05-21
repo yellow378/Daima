@@ -68,4 +68,23 @@ int main()
    }
 ~~~
 
-3. 
+
+3. 转换像素大小
+~~~python
+
+from PIL import Image
+def produceImage(file_in, width, height, file_out):
+image = Image.open(file_in)
+resized_image = image.resize((width, height), Image.ANTIALIAS)
+resized_image.save(file_out)
+
+if __name__ == '__main__':
+file_in = '1.jpg'
+width = 32
+height = 32
+file_out = 'OIP.jpg'
+produceImage(file_in, width, height, file_out)
+
+~~~
+
+   
